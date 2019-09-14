@@ -1,0 +1,325 @@
+<%include ../inc/head.ejs %>
+    <%include ../inc/top.ejs %>
+
+        <div id="page1">
+
+            <div class="sub">
+                <!--
+	       <div class="depth">
+		   <h2>대여하기</h2>
+                <ul>
+                    <li class="home">HOME</li>
+                    <li class="depth_arrow">대여하기</li>
+					 <li class="depth_arrow">개인</li>
+                </ul>
+            </div>
+
+		  -->
+
+                <div class="s_conts rental">
+
+                    <div class="topmenu">
+                        <p class="category_font">추천</p>
+                    </div>
+
+
+                    <!-- S: visual banner -->
+                    <div class="flexslider shadow">
+                        <ul class="slides">
+                            <li><img src="/img/main/m_visual1.png" /></li>
+                            <li><img src="/img/main/m_visual2.png" /></li>
+                            <li><img src="/img/main/m_visual3.png" /></li>
+                        </ul>
+                    </div>
+                    <!-- FlexSlider -->
+                    <script defer src="/js/jquery.flexslider.js"></script>
+
+                    <link rel="stylesheet" href="/css/flexslider.css" type="text/css" media="screen" />
+
+                    <script type="text/javascript">
+                        $(window).load(function() {
+                            $('.flexslider').flexslider({
+                                animation: "slide",
+                                start: function(slider) {}
+                            });
+                        });
+                    </script>
+                    <!--// E: visual_banner-->
+
+                    <!-- gallery -->
+                    <div id="gallery">
+                        <!--siteLink-->
+                        <link rel="stylesheet" type="text/css" media="all" href="/css/slick.css" />
+                        <script type="text/javascript" src="/js/slick.min.js"></script>
+                        <div class="slick-slider">
+                            <!--제품롤링-->
+                            <div class="slick-list">
+                                <ul class="autoplay">
+                                    <li><img src="/img/sub/rec01.jpg" /></li>
+                                    <li><img src="/img/sub/rec02.jpg" /></li>
+                                    <li><img src="/img/sub/rec03.jpg" /></li>
+                                    <li><img src="/img/sub/rec04.jpg" /></li>
+                                    <li><img src="/img/sub/rec05.jpg" /></li>
+                                    <li><img src="/img/sub/rec06.jpg" /></li>
+                                    <li><img src="/img/sub/rec07.jpg" /></li>
+                                </ul>
+                            </div>
+                            <!-- END 제품롤링-->
+
+                        </div>
+                        <!-- END siteLink-->
+
+                        <script type="text/javascript">
+                            $('.autoplay').slick({
+                                slidesToShow: 3,
+                                slidesToScroll: 1,
+                                autoplay: true,
+                                autoplaySpeed: 2000,
+
+                            });
+                        </script>
+
+                    </div>
+                    <!-- END gallery -->
+                    <table class="reatal_recom">
+                            <colgroup>
+                                <col style="width:100%">
+                            </colgroup>
+                            
+                            <tr class="last">
+                                    <td id="recom_map"></td>
+                            </tr>
+                        </table>
+                    <div id="categoryPanel" class="products">
+                        <div class="products1 mr3 mb2">
+                            <a href="javascript:GoPage('rental01-2')">
+                                <p><img src="/img/main/product01.jpg" class="weaBG"></p>
+                                <div class="txt">
+                                    <p class="p1">위치 <span>20m이내</span></p>
+                                    <p class="p2"><span class="fc_02">2,000</span>원</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="products2 m0 mb2">
+                            <a href="javascript:GoPage('rental01-2')">
+                                <p><img src="/img/main/product02.jpg" class="weaBG"></p>
+                                <div class="txt">
+                                    <p class="p1">위치 <span>20m이내</span></p>
+                                    <p class="p2"><span class="fc_02">2,000</span>원</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="products3 mr3">
+                            <a href="javascript:GoPage('rental01-2')">
+                                <p><img src="/img/main/product03.jpg" class="weaBG"></p>
+                                <div class="txt">
+                                    <p class="p1">위치 <span>20m이내</span></p>
+                                    <p class="p2"><span class="fc_02">2,000</span>원</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="products3 m0">
+                            <a href="javascript:GoPage('rental01-2')">
+                                <p><img src="/img/main/product03.jpg" class="weaBG"></p>
+                                <div class="txt">
+                                    <p class="p1">위치 <span>20m이내</span></p>
+                                    <p class="p2"><span class="fc_02">2,000</span>원</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+                </div>
+
+
+
+
+
+            </div>
+            <!-- sub end -->
+
+        </div>
+        <!-- page end -->
+
+        <script>    //지금 내 위치와 가까운 대여등록자만 보여주기
+
+            getAllGoods();  //우선 디비에서 맨처음으로 모든 물품 가져옴
+            function getAllGoods() {
+                    $.ajax({
+                        type: 'GET',
+                        url: BASE_URL + "API/goods",
+                        timeout: 2000,
+                        success: function(data) {                           
+                            find_location(data);       //현재 내 주소 찾음                  
+                        },
+                        error: function(err) {
+                            console.log(err);
+                            //toastr.warning(err.responseJSON.message);
+                        }
+                    });
+                }
+            function find_location(data) {  //내 현재 위치 찾음
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(function(position) {
+                        var pos = {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude
+                        };
+                        location_xy = position.coords.latitude + ":" + position.coords.longitude;
+                        setGoogleMap(data, location_xy);    //구글 맵에 내 위치와 가까운 물품 보여주기 위한 것
+                    }, function() {
+                        handleLocationError(true, infoWindow, map.getCenter());
+                    });
+                } else {
+                    // Browser doesn't support Geolocation
+                    handleLocationError(false, infoWindow, map.getCenter());
+                }
+
+            }
+            function loadGoods(goods) {
+                var content = '<div class="products1 mg">' +
+                    '<a href="/doc/rental01-2?gid=' + goods._id + '">' //여기 조금 더 추가
+                    +
+                    '<p><img src="' + '../' + goods.imagePath.first + '" class="weaBG"></p>' +
+                    '<div class="txt">' +
+                    '<p class="p1">위치 : <span>' + goods.realLocation + '</span></p>' +
+                    '<p class="p1_name">' + goods.name + '</p>' +
+                    '<p class="p2"><span class="fc_02">' + goods.price + '</span>원</p>' +
+                    '</div>' +
+                    '</a>' +
+                    '</div>';
+                $('#categoryPanel').append(content);
+            }
+
+            function ViewGoodslist(category_index,data) {
+                $('#categoryPanel').empty();
+                var dataCount = category_index.split(':');
+                for (var i = 0; i < dataCount.length-1; i++) {
+                    var count = parseInt(dataCount[i]);
+                    loadGoods(data[count]);
+                }
+            }
+            function setGoogleMap(data, location_xy) {  //내 현재 위치 위도,경도에 대한 주소 가져오기
+                var strArray = location_xy.split(':');
+                var geocode = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + strArray[0] + "," + strArray[1] + "&key=AIzaSyAmN75yGf-ADS4d5GMBkQXd_3RqzB973U4";
+                $.ajax({
+                    url: geocode,
+                    type: 'POST',
+                    success: function(msg) {
+                        var gps_location = msg.results[1].formatted_address; //전체 주소 가져옴
+
+                        var current_location = gps_location.split(' ');
+                        division_location(current_location, data);  //내 주소와 맞는 물품을 거르기 위한 것
+                    }
+                })
+              
+                
+
+               
+                
+                
+            }
+            function division_location(current_location, data){
+                current_location = current_location[1]+current_location[2]+current_location[3];
+                //current_location = "대구광역시수성구수성1가동";
+                var coincide_index = "";    //디비에 있는 물품의 주소와 내 현재 주소와 일치하는 물품의 인덱스 저장하기 위한것
+                for(var i=0; i<data.length; i++)
+                {
+                    var data_location = data[i].realLocation.split(' ');
+                    data_location = data_location[0]+data_location[1]+data_location[2];
+                    if(current_location == data_location)
+                    {
+                        coincide_index += i + ":";
+                    }
+                }
+                division_category(coincide_index, data);
+                ViewGoodslist(coincide_index,data); //내 현재 주소와 가까운 물품 보여주기
+                displayMap(coincide_index, data);   //내 현재 주소와 가까운 물품만 지도에 표시하기
+                
+            }
+            function division_category(coincide_index, data)
+            {
+                var dataCount = coincide_index.split(':');
+                var category_index = ""; //카테고리가 rain인거
+                for (var i = 0; i < dataCount.length-1; i++) {
+                    var count = parseInt(dataCount[i]);
+                    if(data[count].weather == "rain")
+                    {
+                        category_index += i + ":";
+                    }
+                }
+                ViewGoodslist(category_index,data); //내 현재 주소와 가까운 물품 보여주기
+                displayMap(category_index, data);   //내 현재 주소와 가까운 물품만 지도에 표시하기
+            }
+            function displayMap(category_index, data){
+
+                directionsDisplay = new google.maps.DirectionsRenderer;
+                directionsService = new google.maps.DirectionsService;
+                
+                var pos = {
+                    lat: 36.13,
+                    lng: 128.41
+                };
+                
+                var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
+                var icons = {
+                    parking: {
+                        icon: iconBase + 'parking_lot_maps.png'
+                    },
+                    library: {
+                        icon: iconBase + 'library_maps.png'
+                    },
+                    info: {
+                        icon: iconBase + 'info-i_maps.png'
+                    }
+                };
+                
+                var dataCount = category_index.split(':');
+
+                var features = new Array();
+                
+
+                for(var i=0; i<dataCount.length-1; i++)
+                { 
+                    var count = parseInt(dataCount[i]);
+                    var json = new Object();
+                    json.position = data[count].location;
+                    json.type = 'parking';
+                    features.push(json);
+                    alert(i);
+                }
+                alert(features);
+                map = new google.maps.Map(document.getElementById('recom_map'), {
+                    zoom: 16,
+                    center: pos,
+                    mapTypeId: 'roadmap'
+                });
+                 var infoWindow = new google.maps.InfoWindow({
+                    map: map
+                });
+                infoWindow.setPosition(pos);
+                infoWindow.setContent("My Location!");
+
+                for(var i=0; i<data.length; i++)
+                { 
+                    var marker = new google.maps.Marker({
+                        position: {
+                            lat : parseFloat(features[i].position.lat),
+                            lng : parseFloat(features[i].position.long)
+                        },
+                        map: map
+                    });
+                }
+                
+            }
+        </script>
+
+
+
+        <% include ../inc/bottom.ejs %>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko" xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+<meta name="viewport" content="width=1200" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+<meta http-equiv="imagetoolbar" content="no" />
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<title>내꺼니꺼</title>
+
+<!-- css -->
+<link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css'>
+<link rel="stylesheet" type="text/css" media="all" href="/css/alpha.css" />
+<link rel="stylesheet" type="text/css" media="all" href="/css/layout.css" />
+<link rel="stylesheet" type="text/css" media="all" href="/css/sub.css" />
+<link rel="stylesheet" type="text/css" media="all" href="/css/common.css" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
+<!--&lt;!&ndash; Optional theme &ndash;&gt;-->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap-theme.min.css">
+<!-- <link rel="stylesheet" type="text/css" media="all" href="/css/bootstrap.min.css" /> -->
+
+
+<!-- js -->
+ <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src = "http://code.jquery.com/jquery-1.7.1.js"></script>
+<script type="text/javascript" src="/js/jquery-1.7.2.min.js"></script><!--/ui/js  -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.slim.js"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript" src="/js/common.js"></script><!--/ui/js  -->
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmN75yGf-ADS4d5GMBkQXd_3RqzB973U4&callback=initMap"></script>
+<script src="/js/script.js"></script>
+<script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
+<!-- tab -->
+<script type="text/javascript">
+$(document).ready(function() {
+	//Default Action
+	$(".tab_content").hide(); //Hide all content
+	$("ul.tabs li:first").addClass("active").show(); //Activate first tab
+	$(".tab_content:first").show(); //Show first tab content
+	
+	//On Click Event
+	$("ul.tabs li").click(function() {
+		$("ul.tabs li").removeClass("active"); //Remove any "active" class
+		$(this).addClass("active"); //Add "active" class to selected tab
+		$(".tab_content").hide(); //Hide all tab content
+		var activeTab = $(this).find("a").attr("href"); //Find the rel attribute value to identify the active tab + content
+		$(activeTab).fadeIn(); //Fade in the active content
+		return false;
+	});
+
+});
+</script>
+
+
+</head>
+
+<body class="main">

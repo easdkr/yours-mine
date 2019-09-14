@@ -1,0 +1,218 @@
+<%include ../inc/head.ejs %>
+    <%include ../inc/top.ejs %>
+
+        <div id="page1">
+
+            <div class="sub">
+                <!--
+	       <div class="depth">
+		   <h2>대여하기</h2>
+                <ul>
+                    <li class="home">HOME</li>
+                    <li class="depth_arrow">대여하기</li>
+                </ul>
+            </div>
+			-->
+                <script type="text/javascript">
+                    $(window).load(function() {
+                        $('.flexslider').flexslider({
+                            animation: "slide",
+                            start: function(slider) {}
+                        });
+                    });
+                </script>
+                <div class="s_conts reatal01">
+
+                    <!-- S: visual banner -->
+
+                    <!-- FlexSlider -->
+                    <script defer src="/js/jquery.flexslider.js "></script>
+
+                    <link rel="stylesheet " href="/css/flexslider.css " type="text/css " media="screen " />
+
+
+                    <!--// E: visual_banner-->
+                    <div class="flexslider shadow">
+                        <ul class="slides">
+                            <li><img src="../img/main/white.jpg" class="goodsImage" id="ImageFirst"></li>
+                            <li><img src="../img/main/white.jpg" class="goodsImage" id="ImageSecond"></li>
+                        </ul>
+                    </div>
+                    <input type="hidden" id="gid" value="<%=gid%>">
+                    <table class="reatal02_t reatal01_t" id="rental01-2">
+                        <tr>
+                            <th>이름</td>
+                                <td>가나다</td>
+                        </tr>
+                        <tr>
+                            <th>대여 기간</td>
+                                <td>2일</td>
+                        </tr>
+                        <tr>
+                            <th>가격</td>
+                                <td>2,000</td>
+                        </tr>
+                        <tr>
+                            <th class="detail">상세설명</td>
+                                <td></td>
+                        </tr>
+                        <tr>
+                            <th>등록자정보</td>
+                                <td>codms5011@naver.com</td>
+                        </tr>
+                        <tr class="last">
+                            <th>규정</td>
+                                <td>00000000000000000</td>
+                        </tr>
+                        <tr class="last">
+                            <th>지도</td>
+                                <td id="map"></td>
+                        </tr>
+                    </table>
+
+                    <p onclick="Rental();"><a>렌탈하기</a></p>
+                </div>
+
+
+            </div>
+            <!-- sub end -->
+
+        </div>
+        <!-- page end -->
+
+
+        <script>
+            getProductsByGid()
+            var directionsDisplay;
+            var directionsService;
+            var map;
+
+            function ViewProductById(data) {
+                var proTable = document.getElementById("rental01-2");
+                document.getElementById("ImageFirst").src = "../" + data.imagePath.first;
+                document.getElementById("ImageSecond").src = "../" + data.imagePath.second;
+
+
+                proTable.rows[0].cells[1].innerHTML = data.name;
+                proTable.rows[1].cells[1].innerHTML = data.rentPeriod;
+                proTable.rows[2].cells[1].innerHTML = data.price;
+                proTable.rows[3].cells[1].innerHTML = data.description;
+                proTable.rows[4].cells[1].innerHTML = data.user_email;
+
+                var weather = "";
+                var goods_category = "";
+                var category = "";
+
+                if (data.weather == "hot")
+                    weather = "더워요";
+                else if (data.weather == "cold")
+                    weather = "추워요";
+                else if (data.weather == "dust")
+                    weather = "미세먼지";
+                else if (data.weather == "rain")
+                    weather = "비";
+                else if (data.weather == "sunny")
+                    weather = "맑아요";
+
+                if (data.goods_category == "sports")
+                    goods_category = "레저/스포츠";
+                else if (data.goods_category == "child")
+                    goods_category = "유아 용품";
+                else if (data.goods_category == "portable")
+                    goods_category = "휴대 용품";
+                else if (data.goods_category == "appliance")
+                    goods_category = "가전 제품";
+                else if (data.goods_category == "car")
+                    goods_category = "자동차/공구";
+
+                if (data.category == "private")
+                    category = "개인";
+                else if (data.category == "enterprise")
+                    category = "기업";
+                else if (data.category == "public")
+                    category = "공공기관";
+
+                proTable.rows[5].cells[1].innerHTML = weather + "__" + goods_category + "__" + category;
+                setGoogleMap(data);
+
+
+            }
+
+            function setGoogleMap(data) {
+
+                directionsDisplay = new google.maps.DirectionsRenderer;
+                directionsService = new google.maps.DirectionsService;
+
+                var pos = {
+                    lat: parseFloat(data.location.lat),
+                    lng: parseFloat(data.location.long)
+                };
+                map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 16,
+                    center: {
+                        lat: 36.144598,
+                        lng: 128.393269
+                    },
+                    mapTypeId: 'roadmap'
+                });
+                directionsDisplay.setMap(map);
+                directionsService.route({
+                    origin: {
+                        lat: 36.144598,
+                        lng: 128.393269
+                    }, //여기 있는 위도 경도가 내 위치로 가정
+                    destination: pos,
+                    travelMode: "TRANSIT"
+                }, function(response, status) {
+                    if (status == 'OK') {
+                        directionsDisplay.setDirections(response);
+                        var infoWindow = new google.maps.InfoWindow({
+                            map: map
+                        });
+                        infoWindow.setPosition(pos);
+                        infoWindow.setContent("My Destination!");
+
+                    } else {
+
+                        map = new google.maps.Map(document.getElementById('map'), {
+                            zoom: 16,
+                            center: pos,
+                            mapTypeId: 'roadmap'
+                        });
+                        var marker = new google.maps.Marker({
+                            position: pos,
+                            map: map
+                        });
+                        var infoWindow = new google.maps.InfoWindow({
+                            map: map
+                        });
+                        infoWindow.setPosition(pos);
+                        infoWindow.setContent("My Destination!");
+
+                    }
+                });
+            }
+
+            function getProductsByGid() {
+                var gid = $('#gid').val();
+                $.ajax({
+                    type: 'GET',
+                    url: BASE_URL + "API/productById",
+                    data: {
+                        data: gid
+                    },
+                    timeout: 2000,
+                    success: function(data) {
+                        console.log(data);
+                        ViewProductById(data);
+                    },
+                    error: function(err) {
+                        console.log(err);
+                        //toastr.warning(err.responseJSON.message);
+                    }
+                });
+            }
+        </script>
+
+
+        <% include ../inc/bottom.ejs %>

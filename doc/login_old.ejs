@@ -1,0 +1,45 @@
+<%include ../inc/head.ejs %>
+<%include ../inc/top.ejs %>
+<div id="log">
+	<span>아이디 : <input type="text" id="uid" /></span><br>
+	<span>패스워드 : <input type="text" id="password" /></span>
+	<input type="button" value="Enter" id="btn" />
+</div>
+<% include ../inc/bottom.ejs %>
+<script>   
+         $(document).ready(function () {
+             // 메시지 전송 이벤트 입니다.
+             $('#btn').click(function () {
+                var userid = document.getElementById('uid').value;
+                var password = document.getElementById('password').value;
+                var Data={
+                    userid: userid,
+                    password: password
+                }
+                console.log(BASE_URL+"API/login");
+                $.ajax({
+                    type:'GET',
+                    url: BASE_URL+"API/login",
+                    data: Data,
+                    timeout:2000,
+                    success:function(data){
+                        alert(data+'님 안녕하세요');
+                        // Server 로 접속 유저아이디 와 접속한 채팅방 이름을 전송 합니다.
+                        socket.emit('login', {userid: userid,socketid:socket.id});
+                    },
+                    error : function(err){
+                        alert(err.error);
+                        console.log(err);
+                        //toastr.warning(err.responseJSON.message);
+                    }
+                });                
+             });
+
+             socket.on('login', function (data) {
+                console.log("ㅎㅎㅎ");
+                 location.href='/doc/chatlist';
+                 //$('#txtappend').append('<dd style="margin:0px;">' + data + '님이 접속 하셨습니다.</dd>');
+             });
+
+         });
+     </script>

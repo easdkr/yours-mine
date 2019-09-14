@@ -1,0 +1,48 @@
+<%include ../inc/head.ejs %>
+<%include ../inc/top.ejs %>
+
+<div id="page5">
+    	        
+        <div class="sub">
+	       <div class="depth">
+                <h2>FAQ</h2>
+                <ul>
+                    <li class="home">HOME</li>
+                    <li class="depth_arrow">FAQ</li>
+                    <li class="depth_arrow" id='faq_head'></li>
+                </ul>
+            </div>
+
+            <div  class="s_conts">
+                <input id="fid" hidden value="<%=f_id%>">
+             	<div style="background:#f6f6f6;" class="whitebox">
+                    <p id="faq_content"></p>
+                </div>
+            </div>
+            
+            
+   </div><!-- sub end -->
+        
+</div><!-- page end -->
+<script>
+viewFaq();
+    function viewFaq(){
+        if($('#fid').val()==1){
+            var head="내꺼니꺼가 드디어 오픈 했습니다.";
+            var content="내꺼니꺼가 드디어 오픈했습니다. <br> '내꺼니꺼'는 여러분께 물품을 대여해주고 대여받는 온라인시장을 제공하는 어플입니다. <br> 집에서 노는 물품들을 등록하여 당장 필요한 사람에게 대여해주세요~~~~ <br> 집에 물품이 필요한데 사기에는 부담스럽다?? 내꺼니꺼를 이용해 보세요~~~~";
+            document.getElementById('faq_head').innerHTML=head;
+            document.getElementById('faq_content').innerHTML=content;
+
+        }else{
+            var head="대여 물품 등록시 유의 사항 공지"
+            var content="물품 등록은 메뉴에 대여물품등록에서 할 수 있습니다. <br> 위치와 카테고리를 빠짐없이 등록해 주세요. 등록한 위치정보와 카테고리는 사용자들에게 추천할 때 유용하게 쓰일 수 있습니다.";
+
+            document.getElementById('faq_head').innerHTML=head;
+            document.getElementById('faq_content').innerHTML=content;
+        }
+    }
+</script>
+
+
+<% include ../inc/bottom.ejs %>
+

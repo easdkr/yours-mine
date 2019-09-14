@@ -1,0 +1,32 @@
+<%include ../inc/head.ejs %>
+<%include ../inc/top.ejs %>
+
+<div id="page4">
+	<div class="sub">
+		<div class="s_conts">
+			<div class="nameTop">
+				<label>채팅 리스트</label>
+			</div>
+			<div class='chatlistWrap whitebox'>
+				<div class="whitebox">
+				<ul id="chatlist">
+					<%
+					for(var i=0;i<rooms.length;i++){
+						var index=rooms[i].users.indexOf(userid);
+						if(index!=-1){
+							var j=1-index;%>
+							<li id="<%=rooms[i].roomid%>" onclick="alert(this.id);letsChat(this.innerHTML,this.id);" ><%=rooms[i].users[j]%></li>
+						<%}
+					}
+					%>
+				</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<% include ../inc/bottom.ejs %>
+<%console.log(JSON.stringify(rooms));%>
+
+

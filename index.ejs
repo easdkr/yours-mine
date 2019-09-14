@@ -1,0 +1,283 @@
+<%include inc/head.ejs%>
+    <%include inc/top.ejs%>
+
+        <!-- notice -->
+        <div class="notice">
+            <ul id="vertical-ticker">
+                <li><a href="/doc/faq_contents?f_id=2">대여 물품 등록시 유의 사항 공지<span>2018-04-11</span></a></li>
+                <li><a href="/doc/faq_contents?f_id=1">내꺼니꺼가 드디어 오픈 했습니다.<span>2018-04-12</span></a></li>
+            </ul>
+
+            <script type="text/javascript" src="/js/jquery.totemticker.js"></script>
+            <script type="text/javascript">
+                $(function() {
+                    $('#vertical-ticker').totemticker({
+                        row_height: '25px',
+                        next: '#ticker-next',
+                        previous: '#ticker-previous',
+                        stop: '#stop',
+                        start: '#start',
+                        mousestop: true,
+                    });
+                });
+            </script>
+            <p class="arrow">
+                <a href="#" id="ticker-next"><img src="./img/main/next.png"></a><br>
+                <a href="#" id="ticker-previous"><img src="./img/main/pre.png"></a>
+            </p>
+        </div>
+        <!-- notice -->
+
+        <!-- Content -->
+        <div id="content">
+
+            <!-- S: visual banner -->
+            <div class="flexslider shadow">
+                <ul class="slides">
+                    <li><img src="./img/main/m_visual1.png" /></li>
+                    <li><img src="./img/main/m_visual2.png" /></li>
+                </ul>
+            </div>
+            <!-- FlexSlider -->
+            <script defer src="/js/jquery.flexslider.js"></script>
+
+            <link rel="stylesheet" href="/css/flexslider.css" type="text/css" media="screen" />
+
+            <script type="text/javascript">
+                $(window).load(function() {
+                    $('.flexslider').flexslider({
+                        animation: "slide",
+                        start: function(slider) {}
+                    });
+                });
+            </script>
+            <!--// E: visual_banner-->
+
+            <!-- S: weather -->
+            <div id="weatherWrap">
+                <div id="weather">
+                    <img src="./img/main/weather.jpg" class="weaBG" />
+                    <div class="txt">
+                        <p>실시간 날씨 정보</p>
+                        <colgroup>
+                            <col style="width:20%">
+                            <col style="width:60%">
+                            <col style="width:20%">
+                        </colgroup>
+                        <table class="weaTable" id="weaTable">
+                            <tr>
+                                <th colspan="3" class="fs_20 T_pb20" id="location">-</th>
+                            </tr>
+                            <tr>
+                                <td rowspan="2"><img src="./img/main/sun02.png"></th>
+                                    <td rowspan="2" class="fc_02"><span>-</span>℃</th>
+                                        <td class="fs_20">-℃</th>
+                            </tr>
+                            <tr>
+                                <td class="fs_20">-</th>
+                            </tr>
+                            <tr>
+                                <th colspan="3" class="fs_18 T_pt10" id="sky">-</th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- // E: ClinicWrap -->
+
+
+            <div id="tab_container">
+                <ul class="tabs">
+                    <li><a href="#tab1" onclick="getAllGoods();">날씨별 카테고리</a></li>
+                    <li><a href="#tab2" onclick="getAllGoods();">물품별 카테고리</a></li>
+                </ul>
+
+                <div class="tab_container1">
+                    <div id="tab1" class="tab_content">
+                        <ul class="weathericon">
+                            <li>
+                                <a><img src="/img/main/weather01.png" onclick="getGoodsByWeather('hot');"></a><br><span>더워요</span></li>
+                            <li>
+                                <a><img src="/img/main/weather02.png" onclick="getGoodsByWeather('cold');"></a><br><span>추워요</span></li>
+                            <li>
+                                <a><img src="/img/main/weather03.png" onclick="getGoodsByWeather('dust');"></a><br><span>미세먼지</span></li>
+                            <li>
+                                <a><img src="/img/main/weather04.png" onclick="getGoodsByWeather('rain');"></a><br><span>비</span></li>
+                            <li>
+                                <a><img src="/img/main/weather05.png" onclick="getGoodsByWeather('sunny');"></a><br><span>맑아요</span></li>
+                        </ul>
+                    </div>
+                    <!--//#tab1 End-->
+                    <div id="tab2" class="tab_content" style="display:none;">
+                        <ul class="weathericon">
+                            <li>
+                                <a><img src="/img/main/weather06.png" onclick="getGoodsByGoodsType('sports');"></a><br><span>레저/스포츠</span></li>
+                            <li>
+                                <a><img src="/img/main/weather07.png" onclick="getGoodsByGoodsType('child');"></a><br><span>유아용품</span></li>
+                            <li>
+                                <a><img src="/img/main/weather08.png" onclick="getGoodsByGoodsType('portable');"></a><br><span>휴대용품</span></li>
+                            <li>
+                                <a><img src="/img/main/weather09.png" onclick="getGoodsByGoodsType('appliance');"></a><br><span>가전제품</span></li>
+                            <li>
+                                <a><img src="/img/main/weather10.png" onclick="getGoodsByGoodsType('car');"></a><br><span>자동차/공구</span></li>
+                        </ul>
+
+
+                    </div>
+                    <!-- // end tab2 End-->
+
+
+                </div>
+                <!-- // end tab_container1 -->
+            </div>
+            <!-- // end tab_container -->
+
+            <div id="goodsPanel" class="products">
+                <div class="products1 mg">
+                    <a href="javascript:GoPage('rental01-2')">
+                        <p><img src="./img/main/product01.jpg" class="weaBG"></p>
+                        <div class="txt">
+                            <p class="p1">위치 <span>20m이내</span></p>
+                            <p class="p2"><span class="fc_02">2,000</span>원</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="products2 mg">
+                    <p><img src="./img/main/product02.jpg" class="weaBG"></p>
+                    <div class="txt">
+                        <p class="p1">위치 <span>20m이내</span></p>
+                        <p class="p2"><span class="fc_02">2,000</span>원</p>
+                    </div>
+                </div>
+                <div class="products3 mg">
+                    <p><img src="./img/main/product03.jpg" class="weaBG"></p>
+                    <div class="txt">
+                        <p class="p1">위치 <span>20m이내</span></p>
+                        <p class="p2"><span class="fc_02">2,000</span>원</p>
+                    </div>
+                </div>
+                <div class="products3 mg">
+                    <p><img src="./img/main/product03.jpg" class="weaBG"></p>
+                    <div class="txt">
+                        <p class="p1">위치 <span>20m이내</span></p>
+                        <p class="p2"><span class="fc_02">2,000</span>원</p>
+                    </div>
+                </div>
+                <div class="products1 mg">
+                    <a href="javascript:GoPage('rental01-2')">
+                        <p><img src="./img/main/product01.jpg" class="weaBG"></p>
+                        <div class="txt">
+                            <p class="p1">위치 <span>20m이내</span></p>
+                            <p class="p2"><span class="fc_02">2,000</span>원</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="products1 mg">
+                    <a href="javascript:GoPage('rental01-2')">
+                        <p><img src="./img/main/product01.jpg" class="weaBG"></p>
+                        <div class="txt">
+                            <p class="p1">위치 <span>20m이내</span></p>
+                            <p class="p2"><span class="fc_02">2,000</span>원</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="products1 mg">
+                    <a href="javascript:GoPage('rental01-2')">
+                        <p><img src="./img/main/product01.jpg" class="weaBG"></p>
+                        <div class="txt">
+                            <p class="p1">위치 <span>20m이내</span></p>
+                            <p class="p2"><span class="fc_02">2,000</span>원</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="products1 mg">
+                    <a href="javascript:GoPage('rental01-2')">
+                        <p><img src="./img/main/product01.jpg" class="weaBG"></p>
+                        <div class="txt">
+                            <p class="p1">위치 <span>20m이내</span></p>
+                            <p class="p2"><span class="fc_02">2,000</span>원</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <script>
+                getAllGoods();
+
+                function getGoodsByGoodsType(goods_type) {
+                    $.ajax({
+                        type: 'GET',
+                        url: BASE_URL + "API/type_goods",
+                        data: {
+                            data: goods_type
+                        },
+                        timeout: 2000,
+                        success: function(data) {
+                            ViewGoodslist(data);
+                        },
+                        error: function(err) {
+                            console.log(err);
+                            //toastr.warning(err.responseJSON.message);
+                        }
+                    });
+                }
+
+                function getGoodsByWeather(weather_type) {
+                    $.ajax({
+                        type: 'GET',
+                        url: BASE_URL + "API/weather_goods",
+                        data: {
+                            data: weather_type
+                        },
+                        timeout: 2000,
+                        success: function(data) {
+                            ViewGoodslist(data);
+                        },
+                        error: function(err) {
+                            console.log(err);
+                            //toastr.warning(err.responseJSON.message);
+                        }
+                    });
+                }
+
+                function getAllGoods() {
+                    $.ajax({
+                        type: 'GET',
+                        url: BASE_URL + "API/goods",
+                        timeout: 2000,
+                        success: function(data) {
+                            ViewGoodslist(data);
+                        },
+                        error: function(err) {
+                            console.log(err);
+                            //toastr.warning(err.responseJSON.message);
+                        }
+                    });
+                }
+
+                function loadGoods(goods) {
+                    var content = '<div class="products1 mg">' +
+                        '<a href="/doc/rental01-2?gid=' + goods._id + '">' //여기 조금 더 추가
+                        +
+                        '<p><img src="' + goods.imagePath.first + '" class="weaBG"></p>' +
+                        '<div class="txt">' +
+                        '<p class="p1">위치 : <span>' + goods.realLocation + '</span></p>' +
+                        '<p class="p1_name">' + goods.name + '</p>' +
+                        '<p class="p2"><span class="fc_02">' + goods.price + '</span>원</p>' +
+                        '</div>' +
+                        '</a>' +
+                        '</div>';
+                    $('#goodsPanel').append(content);
+                }
+
+                function ViewGoodslist(data) {
+                    $('#goodsPanel').empty();
+                    for (var i = 0; i < data.length; i++) {
+                        loadGoods(data[i]);
+                    }
+                }
+            </script>
+
+        </div>
+        <!-- //Content -->
+        <%include inc/bottom.ejs%>

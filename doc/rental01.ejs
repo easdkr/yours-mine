@@ -1,0 +1,190 @@
+<%include ../inc/head.ejs %>
+    <%include ../inc/top.ejs %>
+
+        <div id="page1">
+
+            <div class="sub">
+
+                <!--
+
+	       <div class="depth">
+		   <h2>대여하기</h2>
+                <ul>
+                    <li class="home">HOME</li>
+                    <li class="depth_arrow">대여하기</li>
+					 <li class="depth_arrow">공공기관</li>
+                </ul>
+            </div>
+
+			 -->
+
+                <div class="s_conts rental">
+
+                    <div class="topmenu">
+                        <p class="category_font">공공기관</p>
+                    </div>
+
+
+                    <!-- S: visual banner -->
+                    <div class="flexslider shadow">
+                        <ul class="slides">
+                            <li><img src="/img/main/m_visual1.png" /></li>
+                            <li><img src="/img/main/m_visual2.png" /></li>
+                            <li><img src="/img/main/m_visual3.png" /></li>
+                        </ul>
+                    </div>
+                    <!-- FlexSlider -->
+                    <script defer src="/js/jquery.flexslider.js"></script>
+
+                    <link rel="stylesheet" href="/css/flexslider.css" type="text/css" media="screen" />
+
+                    <script type="text/javascript">
+                        $(window).load(function() {
+                            $('.flexslider').flexslider({
+                                animation: "slide",
+                                start: function(slider) {}
+                            });
+                        });
+                    </script>
+                    <!--// E: visual_banner-->
+
+                    <!-- gallery -->
+                    <div id="gallery">
+                        <!--siteLink-->
+                        <link rel="stylesheet" type="text/css" media="all" href="/css/slick.css" />
+                        <script type="text/javascript" src="/js/slick.min.js"></script>
+                        <div class="slick-slider">
+                            <!--제품롤링-->
+                            <div class="slick-list">
+                                <ul class="autoplay">
+                                    <li><img src="/img/sub/rec01.jpg" /></li>
+                                    <li><img src="/img/sub/rec02.jpg" /></li>
+                                    <li><img src="/img/sub/rec03.jpg" /></li>
+                                    <li><img src="/img/sub/rec04.jpg" /></li>
+                                    <li><img src="/img/sub/rec05.jpg" /></li>
+                                    <li><img src="/img/sub/rec06.jpg" /></li>
+                                    <li><img src="/img/sub/rec07.jpg" /></li>
+                                </ul>
+                            </div>
+                            <!-- END 제품롤링-->
+
+                        </div>
+                        <!-- END siteLink-->
+
+                        <script type="text/javascript">
+                            $('.autoplay').slick({
+                                slidesToShow: 3,
+                                slidesToScroll: 1,
+                                autoplay: true,
+                                autoplaySpeed: 2000,
+
+                            });
+                        </script>
+
+                    </div>
+                    <!-- END gallery -->
+
+                    <div id="categoryPanel" class="products">
+                        <div class="products1 mr3 mb2">
+                            <a href="javascript:GoPage('rental01-2')">
+                                <p><img src="/img/main/product01.jpg" class="weaBG"></p>
+                                <div class="txt">
+                                    <p class="p1">위치 <span>20m이내</span></p>
+                                    <p class="p2"><span class="fc_02">2,000</span>원</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="products2 m0 mb2">
+                            <a href="javascript:GoPage('rental01-2')">
+                                <p><img src="/img/main/product02.jpg" class="weaBG"></p>
+                                <div class="txt">
+                                    <p class="p1">위치 <span>20m이내</span></p>
+                                    <p class="p2"><span class="fc_02">2,000</span>원</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="products3 mr3">
+                            <a href="javascript:GoPage('rental01-2')">
+                                <p><img src="/img/main/product03.jpg" class="weaBG"></p>
+                                <div class="txt">
+                                    <p class="p1">위치 <span>20m이내</span></p>
+                                    <p class="p2"><span class="fc_02">2,000</span>원</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="products3 m0">
+                            <a href="javascript:GoPage('rental01-2')">
+                                <p><img src="/img/main/product03.jpg" class="weaBG"></p>
+                                <div class="txt">
+                                    <p class="p1">위치 <span>20m이내</span></p>
+                                    <p class="p2"><span class="fc_02">2,000</span>원</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+                </div>
+
+
+
+
+
+            </div>
+            <!-- sub end -->
+
+        </div>
+        <!-- page end -->
+
+        <script>
+            getAllGoodsByCategory('public');
+
+            function getAllGoodsByCategory(category) {
+                $.ajax({
+                    type: 'GET',
+                    url: BASE_URL + "API/category_goods",
+                    timeout: 2000,
+                    data: {
+                        data: category
+                    },
+                    success: function(data) {
+                        ViewGoodslist(data);
+                    },
+                    error: function(err) {
+                        console.log(err);
+                        //toastr.warning(err.responseJSON.message);
+                    }
+                });
+            }
+
+            function loadGoods(goods) {
+                var content = '<div class="products1 mg">' +
+                    '<a href="/doc/rental01-2?gid=' + goods._id + '">' //여기 조금 더 추가
+                    +
+                    '<p><img src="' + '../' + goods.imagePath.first + '" class="weaBG"></p>' +
+                    '<div class="txt">' +
+                    '<p class="p1">위치 : <span>' + goods.realLocation + '</span></p>' +
+                    '<p class="p1_name">' + goods.name + '</p>' +
+                    '<p class="p2"><span class="fc_02">' + goods.price + '</span>원</p>' +
+                    '</div>' +
+                    '</a>' +
+                    '</div>';
+                $('#categoryPanel').append(content);
+            }
+
+            function ViewGoodslist(data) {
+                $('#categoryPanel').empty();
+                for (var i = 0; i < data.length; i++) {
+                    loadGoods(data[i]);
+                }
+            }
+        </script>
+
+
+
+        <% include ../inc/bottom.ejs %>

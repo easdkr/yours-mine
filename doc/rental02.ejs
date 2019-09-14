@@ -1,0 +1,184 @@
+<%include ../inc/head.ejs %>
+    <%include ../inc/top.ejs %>
+
+        <div id="page2">
+
+            <div class="sub">
+                <div class="depth">
+                    <h2>대여물품등록</h2>
+                    <ul>
+                        <li class="home">HOME</li>
+                        <li class="depth_arrow">대여물품등록</li>
+                    </ul>
+                </div>
+                <form method="post" action="/API/rentalEnroll" enctype="multipart/form-data">
+                    <div class="s_conts rental02">
+                        <div style="margin-bottom : 40px">
+                            <div class="row rList">
+                                <div style="padding-right: 0px;" class="col-sm-3 col-3 listBorder">
+                                    파일
+                                </div>
+                                <div class="col-sm-9 col-9 listBorder">
+                                    <p><input multiple="multiple" type="file" class="replace form-control" name="image" id="fileName" required/></p>
+                                </div>
+                            </div>
+                            <div class="row rList">
+                                <div style="padding-right: 0px;" class="col-sm-3 col-3 listBorder">
+                                    이름
+                                </div>
+                                <div style="padding-left: 2px;" class="col-sm-9 col-9 listBorder">
+                                    <input type="text" placeholder="이름" class="input" id="go_name" name="name">
+                                </div>
+                            </div>
+                            <div class="row rList">
+                                <div style="padding-right: 0px;" class="col-sm-3 col-3 listBorder">
+                                    가격
+                                </div>
+                                <div style="padding-left: 2px;" class="col-sm-9 col-9 listBorder">
+                                    <input type="text" placeholder="가격(숫자만 적어주세요)" class="input" id="go_price" name="price">
+                                </div>
+                            </div>
+                            <div class="row rList">
+                                <div style="padding-right: 0px;" class="col-sm-3 col-3 listBorder">
+                                    대여기간
+                                </div>
+                                <div style="padding-left: 2px;" style="padding-left: 2px;" class="col-sm-9 col-9 listBorder">
+                                    <input type="text" placeholder="일 단위로 적어주세요" class="input" id="period" name="period">
+                                </div>
+                            </div>
+                            <div class="row rList">
+                                <div style="padding-right: 0px;" class="col-sm-3 col-3 listBorder">
+                                    물품 분류
+                                </div>
+                                <div style="padding-left: 2px;" class="col-sm-9 col-9 listBorder">
+                                    <select name="goodsCa" class="input" id="goods">
+                                        <option value="sports" slected>레저/스포츠
+                                        <option value="child" slected>유아 용품
+                                        <option value="portable" slected>휴대 용품
+                                        <option value="appliance" slected>가전 제품
+                                        <option value="car" slected>자동차/공구
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row rList">
+                                <div style="padding-right: 0px;" class="col-sm-3 col-3 listBorder">
+                                    날씨 분류
+                                </div>
+                                <div style="padding-left: 2px;" class="col-sm-9 col-9 listBorder">
+                                    <select name="weatherCa" class="input" id="weathergoods">
+                                            <option value="hot" slected>더워요
+                                            <option value="cold" slected>추워요
+                                            <option value="dust" slected>미세먼지
+                                            <option value="rain" slected>비
+                                            <option value="sunny" slected>맑아요
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row rList">
+                                <div style="padding-right: 0px;" class="col-sm-3 col-3 listBorder">
+                                    기관 분류
+                                </div>
+                                <div style="padding-left: 2px;" class="col-sm-9 col-9 listBorder">
+                                    <select name="category" class="input" id="category">
+                                                <option value="private" slected>개인
+                                                <option value="enterprise" slected>기업
+                                                <option value="public" slected>공공기관
+                                        </select>
+                                </div>
+                            </div>
+                            <div class="row rList">
+                                <div style="padding-right: 0px;" class="col-sm-3 col-3">
+                                    상세 설명
+                                </div>
+                                <div style="padding-left: 2px;" class="col-sm-9 col-9">
+                                    <input type="text" placeholder="" class="input d_input" id="description" name="description">
+                                </div>
+                            </div>
+                            <div class="row rList">
+                                <div style="padding-right: 0px;" class="col-sm-3 col-3">
+                                    위치
+                                </div>
+                                <div style="padding-left: 2px;" class="col-sm-9 col-9">
+                                    <input type="button" id="locateBtn" onclick="locate_click();" value="위치 확인" />
+                                    <br>
+                                    <input type="hidden" id="result_location" name="location" />
+                                    <input type="hidden" id="realLocation" name="realLocation" />
+                                </div>
+                                <input type="hidden" name="userid" value="<%=userid%>" />
+                            </div>
+
+                            <div class="row rList">
+                                <div class="col-sm-6 col-6">
+                                    <button type="submit" id="rental" class="rentalBtn">등록</button>
+                                </div>
+                                <div class="col-sm-6 col-6">
+                                    <button id="cancel" class="cancelBtn">취소</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+
+
+
+
+
+            </div>
+            <!-- sub end -->
+
+        </div>
+        <!-- page end -->
+
+
+
+        <script>
+            var user_location;
+
+            function locate_click() {
+                var locValue = document.getElementById('result_location');
+                var realLocation = document.getElementById('realLocation');
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(function(position) {
+                        var pos = {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude
+                        };
+                        user_location = position.coords.latitude + ":" + position.coords.longitude;
+                        locValue.value = user_location;
+                        // infoWindow.setPosition(pos);
+                        // infoWindow.setContent('Location found -> ' + pos.lat + ":" + pos.lng);
+                        // map.setCenter(pos);
+                        openweather(user_location);
+                        var geocode = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + position.coords.latitude + "," + position.coords.longitude + "&key=AIzaSyAmN75yGf-ADS4d5GMBkQXd_3RqzB973U4";
+                        $.ajax({
+                            url: geocode,
+                            type: 'POST',
+                            success: function(msg) {
+                                var gps_location = msg.results[1].formatted_address; //시를 불러옴
+
+                                var temp = gps_location.split('대한민국 ');
+                                realLocation.value = temp[1];
+                                alert("/" + gps_location + "/" + " 당신의 주소가 확인되었습니다.");
+
+                            }
+                        })
+                    }, function() {
+                        handleLocationError(true, infoWindow, map.getCenter());
+                    });
+                } else {
+                    // Browser doesn't support Geolocation
+                    handleLocationError(false, infoWindow, map.getCenter());
+                }
+            }
+
+
+
+
+            function rental() {
+                //$('form').attr('action', 'API/rentalEnroll');
+                $('form').submit();
+            }
+        </script>
+
+        <% include ../inc/bottom.ejs %>

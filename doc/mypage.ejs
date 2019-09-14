@@ -1,0 +1,104 @@
+<%include ../inc/head.ejs %>
+<%include ../inc/top.ejs %>
+
+<div id="page4">
+    	        
+        <div class="sub">
+		<!--
+	       <div class="depth">
+		   <h2>마이페이지</h2>
+                <ul>
+                    <li class="home">HOME</li>
+                    <li class="depth_arrow">마이페이지</li>
+                </ul>
+            </div>
+			-->            
+            <div class="s_conts mypage">
+			 <div class="nameTop">
+			   <p class="name"><img src="/img/sub/mypage01.png"><span>이름</span></p>
+			   <p class="pay"><a>결제하기</a></p>
+			 </div>
+			 <div class="chat">
+			 	<div class="chat-history">
+			 		<p>대화창</p>
+				  <ul>
+			          <li class="clearfix">
+			            <div class="message-data ">
+			              <span class="message-data-time" >10:10 AM, Today</span> &nbsp; &nbsp;
+			              <span class="message-data-name" >Olia</span> <i class="fa fa-circle other"></i>
+			              
+			            </div>
+			            <div class="message other-message">
+			              Hi Vincent, how are you? How is the project coming along?
+			            </div>
+			          </li>
+			          
+			          <li>
+			            <div class="message-data align-right">
+			              <span class="message-data-name"><i class="fa fa-circle me"></i> Vincent</span>
+			              <span class="message-data-time">10:12 AM, Today</span>
+			            </div>
+			            <div class="message my-message float-right">
+			              Are we meeting today? Project has been already finished and I have results to show you.
+			            </div>
+			          </li>
+			        </ul>
+			 	</div>
+			 </div>
+			 <div class="text">
+				 <input type="text" placeholder="chat" class="my_input" id="m">
+				 <!--<input type="button" class="my_button">-->
+				 <button style="font-size:13px;"class="my_button" id="sendbtn">send</button>
+			 </div>
+            </div>
+            
+            
+   </div><!-- sub end -->
+        
+</div><!-- page end -->
+
+<script>
+	$('#sendbtn').click(function(){
+		var date=new Date().toLocaleTimeString().replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3");
+		socket.emit('send message',{ sendto : $('#othersname').val(),sendfrom: $('#myname').val(),msg: $('#m').val(),roomid:$('#roomid').val(), time : date});
+		var output='<li class="clearfix">'
+		            +'<div class="message-data align-right">'
+		            +'<span class="message-data-time" >'+date+'</span> &nbsp; &nbsp;'
+		            +'<span class="message-data-name" >'+'황채은'+'</span> <i class="fa fa-circle me"></i>' 
+		            +'</div>'
+		            +'<div class="message my-message float-right">' 
+		            +$('#m').val();
+		            +'</div>'
+		          +'</li>';
+		$('.chat-history ul').append(output);
+		$('.chat-history').scrollTop($('.chat-history').prop("scrollHeight"));
+		$('#m').val('');
+	});
+	$('#m').keydown(function(event){
+	  if(event.keyCode == 13)
+	  {
+	    $('#sendbtn').click();
+	  }
+	});
+	socket.on('receive message', function(data){
+		console.log(data.msg,data.sendfrom);
+      	if(data.sendfrom==$('#othersname').val()){
+	      	var output='<li class="clearfix">'
+			            +'<div class="message-data">'
+			            +'<span class="message-data-time" >'+data.time+'</span> &nbsp; &nbsp;'
+			            +'<span class="message-data-name" >'+'황채은'+'</span> <i class="fa fa-circle other"></i>' 
+			            +'</div>'
+			            +'<div class="message other-message">' 
+			            +data.msg;
+			            +'</div>'
+			          +'</li>';
+			$('.chat-history ul').append(output);
+			$('.chat-history').scrollTop($('.chat-history').prop("scrollHeight"));
+			$('#m').val('');
+	    }
+    });
+</script>
+
+
+
+<% include ../inc/bottom.ejs %>

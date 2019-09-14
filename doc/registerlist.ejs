@@ -1,0 +1,75 @@
+<%include ../inc/head.ejs %>
+    <%include ../inc/top.ejs %>
+
+        <div id="page5">
+
+            <div class="sub">
+                <div class="depth">
+                    <h2>등록리스트</h2>
+                    <ul>
+                        <li class="home">HOME</li>
+                        <li style="padding-left:3%" class="depth_arrow">마이페이지</li>
+                        <li style="padding-left:3%" class="depth_arrow">등록리스트</li>
+                    </ul>
+                </div>
+
+
+
+                <div class="s_conts">
+
+                    <div class="products" id="myproducts">
+
+                    </div>
+
+                </div>
+
+
+            </div>
+            <!-- sub end -->
+
+        </div>
+        <!-- page end -->
+        <script>
+            getMyGoods();
+
+            function loadGoods(goods) {
+                var content = '<div class="products1 mg">' +
+                    '<a href="/doc/rentalView?gid=' + goods._id + '">' //여기 조금 더 추가
+                    +
+                    '<p><img src="../' + goods.imagePath.first + '" class="weaBG"></p>' +
+                    '<div class="txt">' +
+                    '<p class="p1">위치 : <span>' + goods.realLocation + '</span></p>' +
+                    '<p class="p1_name">' + goods.name + '</p>' +
+                    '<p class="p2"><span class="fc_02">' + goods.price + '</span>원</p>' +
+                    '</div>' +
+                    '</a>' +
+                    '</div>';
+                $('#myproducts').append(content);
+            }
+
+            function viewmyGoodslist(data) {
+                $('#myproducts').empty();
+                for (var i = 0; i < data.length; i++) {
+                    loadGoods(data[i]);
+                }
+            }
+
+            function getMyGoods() {
+                $.ajax({
+                    type: 'GET',
+                    url: BASE_URL + "API/myproducts",
+                    timeout: 2000,
+                    success: function(data) {
+                        console.log(data);
+                        viewmyGoodslist(data);
+                    },
+                    error: function(err) {
+                        console.log(err);
+                        //toastr.warning(err.responseJSON.message);
+                    }
+                });
+            }
+        </script>
+
+
+        <% include ../inc/bottom.ejs %>

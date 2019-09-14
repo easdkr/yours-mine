@@ -1,0 +1,177 @@
+<%include ../inc/head.ejs %>
+<%include ../inc/top.ejs %>
+
+<div id="page1">
+    	        
+        <div class="sub">
+		<!--
+	       <div class="depth">
+		   <h2>대여하기</h2>
+                <ul>
+                    <li class="home">HOME</li>
+                    <li class="depth_arrow">대여하기</li>
+					 <li class="depth_arrow">개인</li>
+                </ul>
+            </div>
+
+		  -->
+
+			  <div class="s_conts rental">
+
+			  <div class="topmenu">
+			    <p class="top_tit">개인</p>
+				<ul>
+				  <li><a>소분류</a></li>
+				  <li><a>소분류</a></li>
+				  <li><a>소분류</a></li>
+				  <li><a>소분류</a></li>
+				  <li><a>소분류</a></li>
+				  <li><a>소분류</a></li>
+				</ul>
+			  </div>
+		
+
+			<!-- S: visual banner -->
+	<div class="flexslider shadow">
+		<ul class="slides">
+			<li><img src="/img/main/m_visual1.png" /></li>
+			<li><img src="/img/main/m_visual2.png" /></li>
+			<li><img src="/img/main/m_visual3.png" /></li>
+		</ul>
+	</div>
+	<!-- FlexSlider --> 
+	<script defer src="/js/jquery.flexslider.js"></script> 
+
+	<link rel="stylesheet" href="/css/flexslider.css" type="text/css" media="screen" />
+
+	<script type="text/javascript">
+		$(window).load(function(){
+			$('.flexslider').flexslider({
+				animation: "slide",
+				start: function(slider){
+				}
+			});
+		});
+	</script>
+	<!--// E: visual_banner-->
+
+	<!-- gallery -->
+	<div id="gallery">
+
+		<script type="text/javascript" src="/js/common2.js"></script>
+		<!--siteLink-->
+		<div class="siteLink">
+			 <a href="#" class="btn1 linkSitesPrev" title="배너 오른쪽으로 이동">
+			 <img src="/img/sub/arrow_left.png" /></a>
+
+			 <!--제품롤링-->
+			 <div class="linkSites">
+				<ul>
+					<li><img src="/img/sub/rec01.jpg" /></li>
+					<li><img src="/img/sub/rec02.jpg" /></li>
+					<li><img src="/img/sub/rec03.jpg" /></li>
+					<li><img src="/img/sub/rec04.jpg" /></li>
+					<li><img src="/img/sub/rec05.jpg" /></li>
+					<li><img src="/img/sub/rec06.jpg" /></li>
+					<li><img src="/img/sub/rec07.jpg" /></li>
+				</ul>
+			 </div>
+			 <!-- END 제품롤링-->
+
+			 <a href="#" class="btn2 linkSitesNext" title="배너 왼쪽으로 이동">
+			 <img src="/img/sub/arrow_right.png"  /></a>
+		</div>
+		<!-- END siteLink-->
+
+		<script type="text/javascript">
+	   //<![CDATA[
+		 $(function(){
+					$(".linkSites").nCarousel({
+						btnNext:".linkSitesNext",
+						btnPrev:".linkSitesPrev",
+						visible:5,
+						speed:700,			// 이미지 슬라이드 속도
+						auto:3000,			// 이미지 정지 간격
+						autoDisp:false,
+		
+						listType: 'ul',		// List Type 지정 (ul | li)
+		//				linkOn: true,		// Link 활성화 여부 결정, 기본으로 false
+		
+		/* 가운데 주변 이미지 축소 */
+		//				centerFocus: true, // 가운데 이미지 확대여부
+		//				focusSizeW:100,        // 확대되는 이미지의 폭
+		//				focusSizeH:245,   
+						clickMove: false,	// 클릭시 해당 이미지의 포커스를 이동 할지 여부 
+		
+		/* 다른 레이어에 대상 엘리먼트 표시 */
+						dispLayer:"#disp"	// 엘리먼트가 표시될 영역 (#id | .class | tag). 비 활성화시 하위옵션 무시됨
+		//				dispName:"large",	// 작은 이미지에 추가되는 큰 이미지 이름, 지정 안하면 원본 이미지
+		//				dispTag:'img'		// 지정된 영역에 표시될 li 엘리먼트의 하위 엘리먼트 (img(default)|p|...)
+					});
+				});
+			//]]>
+		</script>
+
+	</div>
+	<!-- END gallery -->
+
+	    <div class="products">
+		 <div class="products1 mr3 mb2">
+		 <a href="javascript:GoPage('rental01-2')">
+		    <p><img src="/img/main/product01.jpg" class="weaBG"></p>
+			<div class="txt">
+				<p class="p1">위치 <span>20m이내</span></p>
+				<p class="p2"><span class="fc_02">2,000</span>원</p>
+			</div>
+			</a>
+		 </div>
+		 <div class="products2 m0 mb2">
+		 <a href="javascript:GoPage('rental01-2')">
+		    <p><img src="/img/main/product02.jpg" class="weaBG"></p>
+			<div class="txt">
+				<p class="p1">위치 <span>20m이내</span></p>
+				<p class="p2"><span class="fc_02">2,000</span>원</p>
+			</div>
+			</a>
+		 </div>
+		 <div class="products3 mr3">
+		 <a href="javascript:GoPage('rental01-2')">
+		    <p><img src="/img/main/product03.jpg" class="weaBG"></p>
+			<div class="txt">
+				<p class="p1">위치 <span>20m이내</span></p>
+				<p class="p2"><span class="fc_02">2,000</span>원</p>
+			</div>
+			</a>
+		 </div>
+		 <div class="products3 m0">
+		 <a href="javascript:GoPage('rental01-2')">
+		    <p><img src="/img/main/product03.jpg" class="weaBG"></p>
+			<div class="txt">
+				<p class="p1">위치 <span>20m이내</span></p>
+				<p class="p2"><span class="fc_02">2,000</span>원</p>
+			</div>
+			</a>
+		 </div>
+	</div>
+
+
+
+
+
+
+
+			  </div>
+            
+
+            
+            
+            
+   </div><!-- sub end -->
+        
+</div><!-- page end -->
+
+
+
+
+
+<% include ../inc/bottom.ejs %>

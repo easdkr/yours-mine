@@ -1,0 +1,657 @@
+@charset "utf-8";
+html.no-scroll {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+}
+
+div.menu-on {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+#map {
+    height: 300px;
+}
+
+#rvMap {
+    height: 300px;
+}
+
+#container {
+    width: 98%;
+    margin: 0 auto;
+}
+
+#headerWrap {
+    width: 100%;
+    position: relative;
+}
+
+#headerInner {
+    width: 100%;
+    height: 90px;
+    border-bottom: 2px solid #102842;
+    position: relative;
+}
+
+#headerInner .search {
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    background: #005bac;
+    top: 0;
+    right: 0;
+}
+
+#headerInner .search img {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+}
+
+#headerInner .logo {
+    margin: 0 auto;
+    padding-top: 1.5%;
+    width: 110px;
+}
+
+#headerInner .logo img {
+    width: 100%;
+}
+
+#headerInner .menu_btn {
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    border-right: 1px solid #dedede;
+    top: 0;
+    left: 0;
+}
+
+#headerInner .menu_btn img {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+}
+
+#gnbWrap {
+    position: fixed;
+    top: 0;
+    left: -300px;
+    width: 300px;
+    height: 100%;
+    background: #fff;
+    z-index: 1000;
+    overflow: hidden;
+}
+
+#gnbWrap .login {
+    overflow: hidden;
+    display: block;
+    width: 210px;
+    height: 90px;
+    background: #102842;
+    float: left;
+}
+
+#gnbWrap .login>li {
+    float: left;
+    padding: 35px 25px 20px 35px;
+}
+
+#gnbWrap .login>li:last-child {
+    padding: 35px 0;
+}
+
+#gnbWrap .login>li a {
+    color: #fff;
+    font-size: 16px;
+}
+
+#gnbWrap .close_btn {
+    float: left;
+    width: 89px;
+    background: #102842;
+    position: pointer;
+    height: 90px;
+    border-left: 1px solid #283e55;
+    top: 0;
+    left: 0;
+}
+
+#gnbWrap .close_btn img {
+    position: absolute;
+    top: 32px;
+    left: 245px;
+}
+
+#gnb {
+    width: 100%;
+}
+
+#gnb li a {
+    display: block;
+    color: #222;
+    width: 100%;
+    border-bottom: 1px solid #e3e3e3;
+    line-height: 60px;
+    text-indent: 10px;
+    padding-left: 25px;
+    box-sizing: border-box;
+}
+
+#gnb li.del2>a {
+    background: url(/img/common/del2_open.png) no-repeat 90%;
+    center;
+    margin-top: 90px;
+}
+
+#gnb li.del2 ul {
+    display: none;
+    background: #eee;
+}
+
+#gnb li.del2 ul a {
+    text-indent: 16px;
+    color: #8d8d8d
+}
+
+#gnb li.del3>a {
+    background: url(/img/common/del2_open.png) no-repeat 90%;
+    center;
+}
+
+#gnb li.del3 ul {
+    display: none;
+    background: #eee;
+}
+
+#gnb li.del3 ul a {
+    text-indent: 16px;
+    color: #8d8d8d
+}
+
+#chatlist {
+    width: 100%;
+}
+
+#chatlist li a {
+    display: block;
+    color: #222;
+    width: 100%;
+    border-bottom: 1px solid #e3e3e3;
+    line-height: 60px;
+    text-indent: 10px;
+    padding-left: 25px;
+    box-sizing: border-box;
+}
+
+
+/*------------------------------
+* main
+------------------------------*/
+
+#content {
+    position: relative;
+    width: 100%;
+    clear: both;
+    overflow: hidden;
+}
+
+
+/*------- �˸�------ */
+
+.notice {
+    width: 100%;
+    margin: 0 auto;
+    height: 30px;
+    position: relative;
+    height: 60px;
+    overflow: hidden;
+}
+
+.notice .arrow {
+    width: 7%;
+    float: right;
+    text-align: center;
+    padding-top: 15px;
+}
+
+#vertical-ticker {
+    background: #eff1f5;
+    width: 92.5%;
+    height: 60px;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    float: left;
+    border-right: 1px solid #dedede;
+}
+
+#vertical-ticker li {
+    display: block;
+    color: #4b4b4b;
+    text-align: left;
+    font-size: 16px;
+    line-height: 60px;
+    padding-left: 5%;
+}
+
+#vertical-ticker li a {
+    color: #4b4b4b
+}
+
+#vertical-ticker li a:hover {
+    color: #000
+}
+
+#vertical-ticker li span {
+    float: right;
+    margin-right: 2%;
+    color: #8b8b8b;
+}
+
+
+/*------- �����̵�------ */
+
+.M_slide_box {
+    position: relative;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+}
+
+.M_slide_box ul {
+    width: 100%;
+}
+
+.M_slide_box li {
+    float: left;
+    width: 100%;
+}
+
+.M_slide_box li img {
+    width: 100%;
+}
+
+#weatherWrap {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+#weatherWrap>div .weaBG {
+    width: 100%;
+}
+
+#weatherWrap .txt p {
+    position: absolute;
+    top: 9%;
+    left: 5%;
+    font-size: 20px;
+    letter-spacing: -1.8px;
+    font-family: 'NanumSB';
+    font-weight: bold;
+    color: #102842;
+}
+
+.fc_02 span {
+    font-size: 11vw;
+    letter-spacing: -10px;
+    margin-right: 3%;
+}
+
+#weatherWrap .weaTable {
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    width: 50%;
+    text-align: center;
+}
+
+#weatherWrap .weaTable img {
+    width: 60%;
+}
+
+.T_pb20 {
+    padding-bottom: 10%;
+}
+
+.T_pt10 {
+    padding-top: 5%;
+}
+
+#tab_container {
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+}
+
+#tab_container ul.tabs {
+    overflow: hidden;
+    padding: 0;
+    list-style: none;
+    width: 100%;
+    margin: 0 auto;
+    height: 70px;
+}
+
+#tab_container ul.tabs li {
+    position: relative;
+    float: left;
+    text-align: center;
+    overflow: visible;
+    width: 50%;
+    background: #212121;
+    height: 60px;
+}
+
+#tab_container ul.tabs li:last-child {
+    padding: 0;
+}
+
+#tab_container ul.tabs li a {
+    font-size: 18px;
+    text-decoration: none;
+    display: block;
+    font-weight: 400;
+    color: #fff;
+    line-height: 60px;
+    box-sizing: border-box;
+    padding-bottom: 10px;
+}
+
+#tab_container ul.tabs li a:hover {
+    background: url(/img/main/tab.png) no-repeat center bottom;
+}
+
+#tab_container ul.tabs li:hover {
+    background: #005bac;
+}
+
+#tab_container ul.tabs li.active {
+    background: #005bac;
+}
+
+#tab_container ul.tabs li.active a {
+    background: url(/img/main/tab.png) no-repeat center bottom;
+}
+
+#tab_container .tab_container1 {
+    clear: both;
+    margin: 0;
+    width: 100%;
+}
+
+
+/*
+.tab_content {margin-top:20px; color:#c4c3c3; }
+.tab_content > p {text-align:right;text-transform:uppercase; font-size:12px; margin-bottom:5px;}
+*/
+
+.weathericon {
+    position: relative;
+    overflow: hidden;
+    width: 98%;
+    padding: 7% 1% 10%;
+}
+
+.weathericon img {
+    width: 100%;
+}
+
+.weathericon span {
+    display: inline-block;
+    padding-top: 10%;
+}
+
+.weathericon li {
+    float: left;
+    text-align: center;
+    width: 20%;
+    font-size: 3vw;
+    color: #212121;
+    padding: 0 2%;
+    box-sizing: border-box;
+}
+
+.products {
+    position: relative;
+    width: 97%;
+    background: #f1f4f6;
+    padding: 4% 1.5% 7%;
+    border-top: 1px solid #e3e3e3;
+    overflow: hidden;
+}
+
+.products>div {
+    float: left;
+    border: 1px solid #e3e3e3;
+    width: 49%;
+    background: #fff;
+    box-sizing: border-box;
+}
+
+.mr3 {
+    margin-right: 2%;
+}
+
+.mb2 {
+    margin-bottom: 2%;
+}
+
+.m0 {
+    margin: 0;
+}
+
+.weaBG {
+    width: 100%;
+    height: 200px;
+}
+
+.products .txt {
+    padding: 6%;
+    border-top: 1px solid #dedede;
+}
+
+.products .txt p.p1 {
+    font-size: 2.8vw;
+    color: #212121;
+}
+
+.products .txt p.p1 span {
+    font-weight: bold;
+    padding-left: 5%;
+}
+
+.products .txt p.p2 {
+    font-size: 3.8vw;
+    color: #212121;
+    text-align: right
+}
+
+.products .txt p.p2 span {
+    font-weight: bold;
+    padding-right: 2%;
+}
+
+
+/* footer */
+
+#footerWrap {
+    width: 100%;
+}
+
+#footerInner {
+    width: 100%;
+    background: #464c58;
+}
+
+#footerInner ul {
+    text-align: center;
+    width: 90%;
+    margin: 0 auto;
+    padding: 10px 0
+}
+
+#footerInner li {
+    display: inline-block;
+    color: #8c909a;
+}
+
+#footerInner li.dot {
+    margin: 0 3% 0 2%;
+}
+
+#footerInner a {
+    font-size: 15px;
+    color: #fff;
+}
+
+.footer_b {
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px 0;
+    background: #323641;
+}
+
+.footer_b>div {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.footer_b p {
+    font-size: 13px;
+    color: #fff;
+    font-weight: bold;
+}
+
+.footer_b ul {
+    font-size: 13px;
+    color: #fff;
+    width: 90%;
+    overflow: hidden;
+    margin-top: 0.8%;
+}
+
+.footer_b ul li {
+    float: left;
+    margin-right: 3%;
+}
+
+.footer_b p.copy {
+    font-size: 12px;
+    color: #bababa;
+    margin: 2.5% 0 1%;
+}
+
+
+/******** media query 420px ********/
+
+@media all and (max-width:420px) {
+    #headerInner {
+        width: 100%;
+        height: 70px;
+        position: relative;
+    }
+    #headerInner .search {
+        position: absolute;
+        width: 70px;
+        height: 70px;
+    }
+    #headerInner .search img {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+    }
+    #headerInner .logo {
+        margin: 0 auto;
+        padding-top: 1.5%;
+        width: 110px;
+    }
+    #headerInner .logo img {
+        width: 80%;
+    }
+    #headerInner .menu_btn {
+        position: absolute;
+        width: 70px;
+        height: 70px;
+    }
+    #headerInner .menu_btn img {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+    }
+    #gnbWrap .login {
+        overflow: hidden;
+        display: block;
+        width: 230px;
+        height: 70px;
+        float: left;
+    }
+    #gnbWrap .close_btn {
+        float: left;
+        width: 69px;
+        height: 70px;
+    }
+    #gnbWrap .login>li {
+        float: left;
+        padding: 25px 25px 20px 35px;
+    }
+    #gnbWrap .login>li:last-child {
+        padding: 25px 0;
+    }
+    #gnbWrap .close_btn img {
+        position: absolute;
+        top: 22px;
+        left: 255px;
+    }
+    #gnb li.del2>a {
+        background: url(/img/common/del2_open.png) no-repeat 90%;
+        center;
+        margin-top: 70px;
+    }
+    #weatherWrap .txt p {
+        font-size: 16px;
+    }
+    .T_pb20 {
+        padding-bottom: 5%;
+    }
+    .T_pt10 {
+        padding-top: 2.5%;
+    }
+}
+
+
+/******** media query 900px ********/
+
+@media all and (min-width:900px) {
+    #headerInner .logo {
+        margin: 0 auto;
+        padding-top: 0.5%;
+        width: 110px;
+    }
+}
+
+
+/******** media query 650px ********/
+
+@media all and (min-width:650px) {
+    .fc_02 span {
+        font-size: 9vw;
+        letter-spacing: -10px;
+        margin-right: 3%;
+    }
+    .fc_02 {
+        font-size: 60px;
+    }
+}

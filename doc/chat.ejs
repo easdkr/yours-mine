@@ -1,0 +1,137 @@
+<%include ../inc/head.ejs %>
+<%include ../inc/top.ejs %>
+
+<div id="page4">
+    	        
+        <div class="sub">
+		<!--
+	       <div class="depth">
+		   <h2>마이페이지</h2>
+                <ul>
+                    <li class="home">HOME</li>
+                    <li class="depth_arrow">마이페이지</li>
+                </ul>
+            </div>
+			-->            
+            <div class="s_conts mypage">
+			 <div class="nameTop">
+			 	<input id="roomid" class="name" type="text" value="<%=roomid%>" hidden>
+			   <p class="name"><img src="/img/sub/mypage01.png"><span id="othersname"><%=othersname%></span></p>
+			   <label><%=userid%></label>
+			   <p class="pay"><a>결제하기</a></p>
+			 </div>
+			 <div class="chat">
+			 	<div class="chat-history">
+			 		<p>대화창</p>
+				  <ul>
+			        </ul>
+			 	</div>
+			 </div>
+			 <div class="text">
+				 <input type="text" placeholder="chat" class="my_input" id="m">
+				 <!--<input type="button" class="my_button">-->
+				 <button style="font-size:13px;"class="my_button" id="sendbtn">send</button>
+			 </div>
+            </div>
+            
+            
+            
+   </div><!-- sub end -->
+        
+</div><!-- page end -->
+
+<script>
+getChatRecords($('#roomid').val());
+socket.on('connection',function(){
+	socket.emit('update',{ sendto : document.getElementById('othersname').innerHTML,sendfrom : document.getElementById('userid').innerHTML,mysocketid: socket.id});
+});
+function loadChatRecords(chat){
+	$("#messages ul li").remove();
+	for(var key in chat.record){
+		if(chat.record[key].writer!=document.getElementById('othersname').innerHTML){
+			var output='<li>'
+	            +'<div class="message-data align-right">'
+	            +'<span class="message-data-time" >'+chat.record[key].time+'</span> &nbsp; &nbsp;'
+	            +'<span class="message-data-name" >'+chat.record[key].writer+'</span> <i class="fa fa-circle me"></i>' 
+	            +'</div>'
+	            +'<div class="message my-message float-right">' 
+	            +chat.record[key].message
+	            +'</div>'
+	          +'</li>';
+	        $('.chat-history ul').append(output);
+			$('.chat-history').scrollTop($('.chat-history').prop("scrollHeight"));
+		}else{
+			var output='<li class="clearfix">'
+		            +'<div class="message-data">'
+		            +'<span class="message-data-time" >'+chat.record[key].time+'</span> &nbsp; &nbsp;'
+		            +'<span class="message-data-name" >'+chat.record[key].writer+'</span> <i class="fa fa-circle other"></i>' 
+		            +'</div>'
+		            +'<div class="message other-message">' 
+		            +chat.record[key].message
+		            +'</div>'
+		          +'</li>';
+		    $('.chat-history ul').append(output);
+			$('.chat-history').scrollTop($('.chat-history').prop("scrollHeight"));
+		}
+	}
+}
+function getChatRecords(roomid){
+		$.ajax({
+			type:"get",
+			dataType:"json",
+			url:BASE_URL+"API/chatrecord?roomid="+roomid,
+			success:function(data){
+				loadChatRecords(data);
+			},
+			error: function(err){
+				alert(err.error);
+				location.href="/";
+			}
+		})
+	}
+
+
+$('#sendbtn').click(function(){
+	var date=new Date().toLocaleTimeString();
+	socket.emit('send message',{ sendto : document.getElementById('othersname').innerHTML,sendfrom: document.getElementById('userid').innerHTML,msg: $('#m').val(),roomid:$('#roomid').val(), time : date});
+	var output='<li class="clearfix">'
+	            +'<div class="message-data align-right">'
+	            +'<span class="message-data-time" >'+date+'</span> &nbsp; &nbsp;'
+	            +'<span class="message-data-name" >'+document.getElementById('userid').innerHTML+'</span> <i class="fa fa-circle me"></i>' 
+	            +'</div>'
+	            +'<div class="message my-message float-right">' 
+	            +$('#m').val();
+	            +'</div>'
+	          +'</li>';
+	$('.chat-history ul').append(output);
+	$('.chat-history').scrollTop($('.chat-history').prop("scrollHeight"));
+	$('#m').val('');
+});
+$('#m').keydown(function(event){
+  if(event.keyCode == 13)
+  {
+    $('#sendbtn').click();
+  }
+});
+socket.on('receive message', function(data){
+	console.log(data.msg,data.sendfrom);
+  	if(data.sendfrom==document.getElementById('othersname').innerHTML){
+      	var output='<li class="clearfix">'
+		            +'<div class="message-data">'
+		            +'<span class="message-data-time" >'+data.time+'</span> &nbsp; &nbsp;'
+		            +'<span class="message-data-name" >'+document.getElementById('userid').innerHTML+'</span> <i class="fa fa-circle other"></i>' 
+		            +'</div>'
+		            +'<div class="message other-message">' 
+		            +data.msg;
+		            +'</div>'
+		          +'</li>';
+		$('.chat-history ul').append(output);
+		$('.chat-history').scrollTop($('.chat-history').prop("scrollHeight"));
+		$('#m').val('');
+    }
+});
+</script>
+
+
+
+<% include ../inc/bottom.ejs %>
